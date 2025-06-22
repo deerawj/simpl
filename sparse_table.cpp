@@ -1,18 +1,21 @@
 #include "bits/stdc++.h"
 using namespace std;
 
+#define vec vector
+
 inline int lg(int x) {
     return __bit_width(x) - 1;
 }
 
+template<typename T>
 struct SparseTable {
-    vector<vector<int>> st;
+    vec<vec<T>> st;
 
-    SparseTable(const vector<int>& a) {
+    SparseTable(const vec<T>& a) {
         int n = a.size();
         int K = lg(n);
 
-        st.assign(K + 1, vector<int>(n));
+        st.assign(K + 1, vec<T>(n));
         st[0] = a;
 
         for (int j = 0; j < K; ++j)
@@ -24,7 +27,7 @@ struct SparseTable {
     }
     
     // [l, r)
-    int query(int l, int r) const {
+    T query(int l, int r) const {
         int j = lg(r - l);
         return min(
             st[j][l],
